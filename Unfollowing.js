@@ -61,6 +61,17 @@ async function unfollowProfileByName(profileName) {
 
             // Wait for the UI to update
             await delay(1000); // Increased delay for UI update
+
+            // Check for and click the "Cập nhật" button if it exists
+            const updateButton = document.querySelector('div[aria-label="Cập nhật"]'); // Adjust selector as needed
+            if (updateButton) {
+                updateButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                updateButton.click();
+                console.log(`Clicked the "Cập nhật" button for ${profileName}`);
+
+                // Wait for the UI to update
+                await delay(1000);
+            }
         } else {
             console.log(`"Đang theo dõi" button not found for ${profileName}`);
         }
@@ -88,7 +99,7 @@ function extractProfileNames() {
 // Function to validate if a name is likely a profile name
 function isValidProfileName(name) {
     // Define a length threshold to differentiate profile names from page names
-    const lengthThreshold = 25; // Adjust this value based on observed patterns
+    const lengthThreshold = 20; // Adjust this value based on observed patterns
 
     // Ensure the name is reasonably short and not empty
     return name.length > 1 && name.length <= lengthThreshold;
